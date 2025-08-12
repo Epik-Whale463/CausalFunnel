@@ -39,40 +39,49 @@ export function QuestionDisplay({
   const handleAnswerChange = (answer: string) => {
     setSelectedAnswer(answer);
     onAnswerSelect(answer);
+    
+    // Add subtle success feedback
+    const element = document.querySelector(`[data-choice="${answer}"]`);
+    if (element) {
+      element.classList.add('animate-pulse');
+      setTimeout(() => {
+        element.classList.remove('animate-pulse');
+      }, 300);
+    }
   };
 
   return (
     <div className="w-full">
       <motion.div
         key={question.id}
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -8 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
         className="w-full"
       >
-        <Card className="border shadow-lg w-full">
-          <CardHeader className="pb-6">
-            <div className="flex items-center justify-between mb-3">
-              <Badge variant="outline" className="text-sm">
+        <Card className="border border-gray-700 shadow-lg bg-gray-900 w-full overflow-hidden">
+          <CardHeader className="pb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-b border-gray-700">
+            <div className="flex items-center justify-between mb-4">
+              <Badge variant="outline" className="text-sm font-semibold px-3 py-1 bg-gray-800 border-gray-600 text-gray-200">
                 Question {questionNumber} of {totalQuestions}
               </Badge>
-              <Badge variant="secondary" className="text-sm">
+              <Badge variant="secondary" className="text-xs font-medium px-2 py-1 bg-gray-800 text-gray-300 rounded-full">
                 {question.category}
               </Badge>
             </div>
-            <CardTitle className="text-xl leading-relaxed text-left">
+            <CardTitle className="text-xl leading-relaxed text-left text-white font-semibold">
               {question.question}
             </CardTitle>
-            <CardDescription className="text-left">
+            <CardDescription className="text-left text-gray-300 mt-2">
               Select the best answer from the options below
             </CardDescription>
           </CardHeader>
-          <CardContent className="pb-6">
+          <CardContent className="pb-6 bg-gray-900">
             <RadioGroup
               value={selectedAnswer}
               onValueChange={handleAnswerChange}
-              className="space-y-4"
+              className="space-y-3"
             >
               <AnimatePresence>
                 {question.choices.map((choice: string, index: number) => {
@@ -80,39 +89,55 @@ export function QuestionDisplay({
                   return (
                     <motion.div
                       key={choice}
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
+                      initial={{ opacity: 0.8 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.15, ease: "easeOut" }}
                       className={`
-                        relative border rounded-lg p-4 cursor-pointer transition-all duration-200
+                        relative border-2 rounded-xl p-5 cursor-pointer transition-all duration-200 group backdrop-blur-sm
                         ${isSelected 
-                          ? 'border-primary bg-primary/5 shadow-sm' 
-                          : 'border-border hover:border-primary/50 hover:bg-accent/50'
+                          ? 'border-gray-600 bg-gray-800 shadow-sm' 
+                          : 'border-gray-700 hover:border-gray-600 hover:bg-gray-800 hover:shadow-sm bg-gray-900'
                         }
                       `}
+                      onClick={() => handleAnswerChange(choice)}
+                      data-choice={choice}
                       whileHover={{ y: -1 }}
                       whileTap={{ scale: 0.995 }}
-                      onClick={() => handleAnswerChange(choice)}
                     >
                       <div className="flex items-center space-x-4">
-                        <RadioGroupItem 
-                          value={choice} 
-                          id={choice}
-                          className="shrink-0"
-                        />
+                        <div className="relative">
+                          <RadioGroupItem 
+                            value={choice} 
+                            id={choice}
+                            className={`shrink-0 w-5 h-5 ${isSelected ? 'border-gray-500 text-gray-300' : 'border-gray-600'}`}
+                          />
+                          {isSelected && (
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ duration: 0.2, ease: "easeOut" }}
+                              className="absolute inset-0 bg-gray-600 rounded-full flex items-center justify-center"
+                            >
+                              <div className="w-2 h-2 bg-white rounded-full" />
+                            </motion.div>
+                          )}
+                        </div>
                         <Label 
                           htmlFor={choice} 
-                          className="flex-1 cursor-pointer text-sm leading-relaxed font-medium"
+                          className="flex-1 cursor-pointer text-sm leading-relaxed font-medium text-gray-200 group-hover:text-white"
                         >
                           {choice}
                         </Label>
                         {isSelected && (
                           <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ type: "spring", stiffness: 500 }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="flex items-center"
                           >
-                            <CheckCircle2 className="h-5 w-5 text-primary" />
+                            <div className="bg-gray-600 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                              Selected
+                            </div>
                           </motion.div>
                         )}
                       </div>

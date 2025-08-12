@@ -46,17 +46,18 @@ export function StartPage({ onStartQuiz, isLoading, error }: StartPageProps) {
       </div>
 
       <div className="w-full max-w-lg relative z-10">
+        {/* Title Section - appears after 0.7s delay */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.5, delay: 0.7, ease: "easeOut" }}
           className="text-center mb-8"
         >
           <motion.h1 
             className="text-5xl font-bold tracking-tight text-white mb-3"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
+            transition={{ delay: 0.8, duration: 0.5, ease: "easeOut" }}
           >
             Knowledge Quiz
           </motion.h1>
@@ -64,16 +65,17 @@ export function StartPage({ onStartQuiz, isLoading, error }: StartPageProps) {
             className="text-gray-300 text-xl"
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
+            transition={{ delay: 0.9, duration: 0.4, ease: "easeOut" }}
           >
             Test your knowledge across various topics
           </motion.p>
         </motion.div>
 
+        {/* Form Card - appears after 0.7s delay */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
+          transition={{ duration: 0.5, delay: 0.7, ease: "easeOut" }}
         >
           <Card className="border border-white/20 shadow-2xl bg-white/5 backdrop-blur-xl">
             <CardHeader className="pb-6">
@@ -81,7 +83,7 @@ export function StartPage({ onStartQuiz, isLoading, error }: StartPageProps) {
                 <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  transition={{ delay: 0.8, duration: 0.3, ease: "easeOut" }}
                 >
                   <User className="h-6 w-6 text-gray-300" />
                 </motion.div>
@@ -97,7 +99,7 @@ export function StartPage({ onStartQuiz, isLoading, error }: StartPageProps) {
                   className="space-y-2"
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
+                  transition={{ delay: 0.9, duration: 0.4, ease: "easeOut" }}
                 >
                   <Label htmlFor="email" className="text-sm font-medium text-white">
                     Email Address
@@ -129,7 +131,7 @@ export function StartPage({ onStartQuiz, isLoading, error }: StartPageProps) {
                 <motion.div
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
+                  transition={{ delay: 1.0, duration: 0.4, ease: "easeOut" }}
                 >
                   <Button
                     type="submit"

@@ -66,7 +66,7 @@ export function QuizInterface({
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-black">
       <div className="container mx-auto p-4 max-w-7xl">
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
           {/* Main Content */}
@@ -76,18 +76,18 @@ export function QuizInterface({
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6"
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 bg-gray-900 rounded-lg border border-gray-700 p-6 shadow-sm hover:shadow-md transition-all duration-300"
             >
               <div>
-                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
+                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
                   Quiz in Progress
                 </h1>
-                <p className="text-muted-foreground">
+                <p className="text-gray-300">
                   Answer all questions to complete the quiz
                 </p>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-sm text-muted-foreground">Taking test as:</span>
-                  <span className="text-sm font-medium bg-muted px-2 py-1 rounded-md">
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="text-sm text-gray-400">Taking test as:</span>
+                  <span className="text-sm font-medium bg-gray-800 text-gray-200 px-3 py-1 rounded-md">
                     {userEmail}
                   </span>
                 </div>
@@ -95,7 +95,11 @@ export function QuizInterface({
               
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="bg-white border-slate-300 text-slate-700 hover:bg-slate-50"
+                  >
                     Submit Quiz
                   </Button>
                 </AlertDialogTrigger>
@@ -122,9 +126,9 @@ export function QuizInterface({
             {/* Question Display */}
             <motion.div
               key={currentQuestionIndex}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0.7 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
             >
               <QuestionDisplay
                 question={currentQuestion}
