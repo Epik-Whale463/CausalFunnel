@@ -47,17 +47,41 @@ export const quizService = {
   },
 
   /**
-   * Shuffle array using Fisher-Yates algorithm
+   * Shuffle array using Fisher-Yates algorithm with seeded randomization
    * @param array Array to shuffle
+   * @param seed Optional seed for consistent shuffling
    * @returns Shuffled array
    */
-  shuffleArray<T>(array: T[]): T[] {
+  shuffleArray<T>(array: T[], seed?: number): T[] {
     const shuffled = [...array];
+    
+    // Use a simple seeded random function for consistent results
+    let currentSeed = seed || this.hashString(array.join(''));
+    const seededRandom = () => {
+      currentSeed = (currentSeed * 9301 + 49297) % 233280;
+      return currentSeed / 233280;
+    };
+
     for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+      const j = Math.floor(seededRandom() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     return shuffled;
+  },
+
+  /**
+   * Create a simple hash from string for seeding
+   * @param str String to hash
+   * @returns Hash number
+   */
+  hashString(str: string): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash);
   },
 
   /**
@@ -66,9 +90,21 @@ export const quizService = {
    * @returns Decoded string
    */
   decodeHtml(str: string): string {
-    const textarea = document.createElement('textarea');
-    textarea.innerHTML = str;
-    return textarea.value;
+    // Check if we're in browser environment
+    if (typeof window !== 'undefined') {
+      const textarea = document.createElement('textarea');
+      textarea.innerHTML = str;
+      return textarea.value;
+    }
+    
+    // Fallback for server-side rendering
+    return str
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#039;/g, "'")
+      .replace(/&nbsp;/g, ' ');
   },
 
   /**
