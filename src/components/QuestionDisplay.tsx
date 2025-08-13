@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { motion } from 'framer-motion';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { CheckCircle } from 'lucide-react';
 import { FormattedQuestion, UserAnswer } from '@/types/quiz';
-import { CheckCircle2, Circle } from 'lucide-react';
 
 interface QuestionDisplayProps {
   question: FormattedQuestion;
@@ -27,6 +28,10 @@ export function QuestionDisplay({
   totalQuestions,
   currentAnswer,
   onAnswerSelect,
+  onNext,
+  onPrevious,
+  canGoNext,
+  canGoPrevious,
 }: QuestionDisplayProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<string>(
     currentAnswer?.selectedAnswer || ''
@@ -39,7 +44,7 @@ export function QuestionDisplay({
   const handleAnswerChange = (answer: string) => {
     setSelectedAnswer(answer);
     onAnswerSelect(answer);
-    
+
     // Add subtle success feedback
     const element = document.querySelector(`[data-choice="${answer}"]`);
     if (element) {
@@ -51,104 +56,115 @@ export function QuestionDisplay({
   };
 
   return (
-    <div className="w-full">
-      <motion.div
-        key={question.id}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2, ease: "easeInOut" }}
-        className="w-full"
-      >
-        <Card className="border border-gray-700 shadow-lg bg-gray-900 w-full overflow-hidden">
-          <CardHeader className="pb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-b border-gray-700">
-            <div className="flex items-center justify-between mb-4">
-              <Badge variant="outline" className="text-sm font-semibold px-3 py-1 bg-gray-800 border-gray-600 text-gray-200">
-                Question {questionNumber} of {totalQuestions}
-              </Badge>
-              <Badge variant="secondary" className="text-xs font-medium px-2 py-1 bg-gray-800 text-gray-300 rounded-full">
-                {question.category}
-              </Badge>
+    <Card className="border border-slate-200 shadow-sm bg-white rounded-lg">
+      <CardHeader className="pb-6 border-b border-slate-200">
+        {/* Clean header */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white text-sm font-semibold">
+              {questionNumber}
             </div>
-            <CardTitle className="text-xl leading-relaxed text-left text-white font-semibold">
-              {question.question}
-            </CardTitle>
-            <CardDescription className="text-left text-gray-300 mt-2">
-              Select the best answer from the options below
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="pb-6 bg-gray-900">
-            <RadioGroup
-              value={selectedAnswer}
-              onValueChange={handleAnswerChange}
-              className="space-y-3"
-            >
-              <AnimatePresence>
-                {question.choices.map((choice: string, index: number) => {
-                  const isSelected = selectedAnswer === choice;
-                  return (
-                    <motion.div
-                      key={choice}
-                      initial={{ opacity: 0.8 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.15, ease: "easeOut" }}
-                      className={`
-                        relative border-2 rounded-xl p-5 cursor-pointer transition-all duration-200 group backdrop-blur-sm
-                        ${isSelected 
-                          ? 'border-gray-600 bg-gray-800 shadow-sm' 
-                          : 'border-gray-700 hover:border-gray-600 hover:bg-gray-800 hover:shadow-sm bg-gray-900'
-                        }
-                      `}
-                      onClick={() => handleAnswerChange(choice)}
-                      data-choice={choice}
-                      whileHover={{ y: -1 }}
-                      whileTap={{ scale: 0.995 }}
-                    >
-                      <div className="flex items-center space-x-4">
-                        <div className="relative">
-                          <RadioGroupItem 
-                            value={choice} 
-                            id={choice}
-                            className={`shrink-0 w-5 h-5 ${isSelected ? 'border-gray-500 text-gray-300' : 'border-gray-600'}`}
-                          />
-                          {isSelected && (
-                            <motion.div
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              transition={{ duration: 0.2, ease: "easeOut" }}
-                              className="absolute inset-0 bg-gray-600 rounded-full flex items-center justify-center"
-                            >
-                              <div className="w-2 h-2 bg-white rounded-full" />
-                            </motion.div>
-                          )}
-                        </div>
-                        <Label 
-                          htmlFor={choice} 
-                          className="flex-1 cursor-pointer text-sm leading-relaxed font-medium text-gray-200 group-hover:text-white"
-                        >
-                          {choice}
-                        </Label>
-                        {isSelected && (
-                          <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.2, ease: "easeOut" }}
-                            className="flex items-center"
-                          >
-                            <div className="bg-gray-600 text-white px-2 py-1 rounded-full text-xs font-semibold">
-                              Selected
-                            </div>
-                          </motion.div>
-                        )}
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </AnimatePresence>
-            </RadioGroup>
-          </CardContent>
-        </Card>
-      </motion.div>
-    </div>
+            <div className="text-lg font-semibold text-slate-900">
+              Question {questionNumber} of {totalQuestions}
+            </div>
+          </div>
+          <Badge variant="secondary" className="text-xs px-3 py-1">
+            {question.category}
+          </Badge>
+        </div>
+        
+        {/* Question text */}
+        <CardTitle className="text-xl leading-relaxed font-medium text-slate-900">
+          {question.question}
+        </CardTitle>
+      </CardHeader>
+      
+      <CardContent className="pt-6 p-6">
+        <RadioGroup
+          value={selectedAnswer}
+          onValueChange={handleAnswerChange}
+          className="space-y-3"
+          aria-label="Answer choices"
+        >
+          {question.choices.map((choice: string, index: number) => {
+            const isSelected = selectedAnswer === choice;
+            const optionLetter = String.fromCharCode(65 + index); // A, B, C, D
+            
+            return (
+              <div
+                key={choice}
+                className={`
+                  border rounded-lg p-4 cursor-pointer transition-all duration-200
+                  ${isSelected 
+                    ? 'border-blue-500 bg-blue-50' 
+                    : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                  }
+                `}
+                onClick={() => handleAnswerChange(choice)}
+              >
+                <div className="flex items-center space-x-3">
+                  {/* Option indicator */}
+                  <div className={`
+                    w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-semibold
+                    ${isSelected 
+                      ? 'border-blue-500 bg-blue-500 text-white' 
+                      : 'border-slate-300 text-slate-600'
+                    }
+                  `}>
+                    {optionLetter}
+                  </div>
+                  
+                  {/* Hidden radio for accessibility */}
+                  <RadioGroupItem 
+                    value={choice} 
+                    id={`choice-${index}`}
+                    className="sr-only"
+                  />
+                  
+                  {/* Answer text */}
+                  <Label 
+                    htmlFor={`choice-${index}`}
+                    className="flex-1 cursor-pointer text-base leading-relaxed text-slate-700"
+                  >
+                    {choice}
+                  </Label>
+                  
+                  {/* Selection indicator */}
+                  {isSelected && (
+                    <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                      <CheckCircle className="w-3 h-3 text-white" />
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </RadioGroup>
+        
+        {/* Action area */}
+        <div className="flex items-center justify-between mt-6 pt-6 border-t border-slate-200">
+          <Button
+            onClick={onPrevious}
+            disabled={!canGoPrevious}
+            variant="outline"
+            className="px-6"
+          >
+            Previous
+          </Button>
+          
+          <div className={`text-sm font-medium ${selectedAnswer ? 'text-green-600' : 'text-slate-500'}`}>
+            {selectedAnswer ? '✓ Answer selected' : 'Select an answer'}
+          </div>
+          
+          <Button
+            onClick={onNext}
+            disabled={!canGoNext}
+            className="px-6 bg-blue-600 hover:bg-blue-700"
+          >
+            {questionNumber === totalQuestions ? 'Review' : 'Next'}
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
