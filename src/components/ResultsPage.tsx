@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { QuizResults, FormattedQuestion } from '@/types/quiz';
-import { Trophy, Target, Clock, CheckCircle2, XCircle, RotateCcw, ChevronDown, ChevronUp, Eye, EyeOff } from 'lucide-react';
+import { Trophy, Clock, CheckCircle2, XCircle, RotateCcw, ChevronDown, ChevronUp, Eye, EyeOff } from 'lucide-react';
 
 interface ResultsPageProps {
   results: QuizResults;
@@ -17,7 +17,7 @@ interface ResultsPageProps {
 
 export function ResultsPage({ results, questions, onRestart }: ResultsPageProps) {
   const [showDetailedReview, setShowDetailedReview] = useState(false);
-  const { totalQuestions, correctAnswers, score, timeSpent, answers } = results;
+  const { totalQuestions, correctAnswers, timeSpent, answers } = results;
   const percentage = (correctAnswers / totalQuestions) * 100;
   
   const formatTime = (seconds: number): string => {

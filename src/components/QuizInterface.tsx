@@ -35,7 +35,7 @@ export function QuizInterface({
   onNext,
   onPrevious,
   onSubmitQuiz,
-  visitedQuestions,
+
   userEmail
 }: QuizInterfaceProps) {
   const currentQuestion = questions[currentQuestionIndex];
