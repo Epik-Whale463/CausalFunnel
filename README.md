@@ -2,11 +2,11 @@
 
 A modern, responsive quiz application built with Next.js 15, featuring real-time progress tracking, text-to-speech capabilities, and a sophisticated glassmorphism UI design.
 
-## 🚀 Live Demo
+##  Live Demo
 
 **Production URL**: [https://quiz-app-three-ruby-69.vercel.app/](https://quiz-app-three-ruby-69.vercel.app/)
 
-## 📋 Overview
+##  Overview
 
 This application provides an interactive quiz experience with 15 questions fetched from the Open Trivia Database API. Users can navigate freely between questions, track their progress in real-time, and receive comprehensive results with detailed review capabilities.
 
@@ -21,7 +21,7 @@ This application provides an interactive quiz experience with 15 questions fetch
 - ✅ **Early submission** available after answering 50% of questions
 - ✅ **Detailed results page** with question-by-question review
 
-## 🏗️ Architecture & Approach
+##  Architecture & Approach
 
 ### Design Philosophy
 I approached this project with a focus on **user psychology** and **professional aesthetics**. The design reduces test anxiety through:
@@ -98,7 +98,7 @@ I approached this project with a focus on **user psychology** and **professional
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/quiz-app.git
+   git clone https://github.com/YOUR_USERNAME/quiz-app.git](https://github.com/Epik-Whale463/CausalFunnel.git
    cd quiz-app
    ```
 
@@ -147,13 +147,9 @@ npm start
 5. **30-minute Duration**: Sufficient time for most users to complete 15 questions
 6. **Device Capabilities**: Users have devices capable of audio playback for TTS feature
 
-## 🎯 Challenges Faced & Solutions
+##  Challenges Faced & Solutions
 
-### Challenge 1: Server-Side Rendering Hydration Issues
-**Problem**: `Math.random()` in question shuffling caused different results on server vs client
-**Solution**: Implemented seeded randomization using content hashing for consistent shuffling across server and client
-
-### Challenge 2: User Experience Psychology
+### Challenge 1: User Experience Psychology
 **Problem**: Traditional quiz interfaces create anxiety and cognitive overload
 **Solution**: 
 - Implemented minimizable timer to reduce pressure
@@ -161,7 +157,7 @@ npm start
 - Applied color psychology (orange for warmth, green for success)
 - Created clean visual hierarchy focusing on the question content
 
-### Challenge 3: Mobile Responsiveness
+### Challenge 2: Mobile Responsiveness
 **Problem**: Complex layouts don't translate well to mobile devices
 **Solution**: 
 - Implemented mobile-first design approach
@@ -169,7 +165,7 @@ npm start
 - Used flexible grid systems (5-column mobile, 3-column desktop)
 - Optimized touch targets and spacing
 
-### Challenge 4: Accessibility Compliance
+### Challenge 3: Accessibility Compliance
 **Problem**: Interactive elements needed to be accessible to all users
 **Solution**:
 - Added comprehensive ARIA labels
@@ -177,7 +173,7 @@ npm start
 - Used semantic HTML structure
 - Provided text alternatives for visual indicators
 
-### Challenge 5: Performance Optimization
+### Challenge 4: Performance Optimization
 **Problem**: Heavy animations and effects could impact performance
 **Solution**:
 - Used CSS transforms instead of layout-triggering properties
@@ -185,7 +181,7 @@ npm start
 - Optimized bundle size by removing unused dependencies
 - Used Next.js built-in optimizations
 
-### Challenge 6: Professional vs. Engaging Design
+### Challenge 5: Professional vs. Engaging Design
 **Problem**: Balancing professional appearance with user engagement
 **Solution**:
 - Chose subtle glassmorphism over flashy effects
@@ -212,7 +208,7 @@ npm start
 - **Performance**: Uses CSS transforms for smooth 60fps animations
 - **Accessibility**: Respects user motion preferences
 
-## 📱 Responsive Design Strategy
+##  Responsive Design Strategy
 
 ### Breakpoint System
 - **Mobile**: < 640px (sm) - Single column, compact components
@@ -225,7 +221,7 @@ npm start
 - **Reduced Cognitive Load**: Simplified navigation and progress indicators
 - **Thumb-Friendly**: Navigation elements positioned for easy reach
 
-## 🔮 Future Enhancements
+##  Future Enhancements
 
 - **Question Categories**: Filter questions by subject area
 - **Difficulty Levels**: Adaptive difficulty based on performance
@@ -233,15 +229,5 @@ npm start
 - **Analytics Dashboard**: Detailed performance insights and trends
 - **Offline Support**: PWA capabilities for offline quiz taking
 - **Custom Branding**: White-label solution for organizations
-
-## 🤝 Contributing
-
-This project demonstrates modern React development practices and is open for contributions. Areas for improvement include:
-- Additional language support for internationalization
-- Enhanced analytics and reporting features
-- Integration with learning management systems
-- Advanced accessibility features
-
----
 
 **Built with ❤️ by Rama Charan** | **Deployed on Vercel** | **Powered by Next.js**
