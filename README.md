@@ -98,7 +98,7 @@ I approached this project with a focus on **user psychology** and **professional
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/quiz-app.git](https://github.com/Epik-Whale463/CausalFunnel.git
+   git clone https://github.com/Epik-Whale463/CausalFunnel.git
    cd quiz-app
    ```
 
